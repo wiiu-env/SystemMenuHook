@@ -260,7 +260,7 @@ int CheckKernelExploit(void) {
 
         uint8_t *hookAddress = (uint8_t*)(0xA0000000 + (0x30000000 - 0x10000000));
 
-        uint32_t entryPoint = load_loader_elf(hookAddress, "wiiu/payload_hook.elf");
+        uint32_t entryPoint = load_loader_elf(hookAddress, "wiiu/hook_payload.elf");
 
         /* set our setup syscall to an unused position */
         kern_write((void*)(KERN_SYSCALL_TBL_1 + (0x25 * 4)), 0x017FF000);
