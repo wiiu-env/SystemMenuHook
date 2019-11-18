@@ -26,7 +26,7 @@ int32_t LoadFileToMem(const char *relativefilepath, char **fileOut, uint32_t * s
     WHBLogPrintf("Loading file %s.",path);
 
     *fileOut = WHBReadWholeFile(path, sizeOut);
-    if (!fileOut) {
+    if (!(*fileOut)) {
         result = -2;
         WHBLogPrintf("WHBReadWholeFile(%s) returned NULL", path);
         goto exit;
@@ -41,7 +41,7 @@ uint32_t load_loader_elf(unsigned char* baseAddress, const char* relativePath) {
     char * elf_data = NULL;
     uint32_t fileSize = 0;
     if(LoadFileToMem(relativePath, &elf_data, &fileSize) != 0) {
-        OSFatal("Failed to load hook elf from SD.");
+        OSFatal("Failed to load hook_payload.elf from the SD Card.");
     }
 
     Elf32_Ehdr *ehdr;
