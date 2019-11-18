@@ -23,12 +23,13 @@ void OSRestartGame(int,char**);
 int main(int argc, char **argv) {
     WHBLogUdpInit();
     if(CheckKernelExploit()) {
-        // When the kernel exploit is set up successfully, we signal the rpx redirecting to move on.
+        // When the kernel exploit is set up successfully, we signal the ios to move on.
         int mcpFd = IOS_Open("/dev/mcp", (IOSOpenMode)0);
         if(mcpFd >= 0) {
+            int in = 0xFD;//IPC_CUSTOM_MEN_RPX_HOOK_COMPLETED;
             int out = 0;
-            const char * path = "done";
-            IOS_Ioctl(mcpFd, 100, (void*)path, strlen(path), &out, sizeof(out));
+           
+            IOS_Ioctl(mcpFd, 100, &in, sizeof(in), &out, sizeof(out));
             IOS_Close(mcpFd);
         }
     }
